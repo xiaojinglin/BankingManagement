@@ -60,19 +60,32 @@ class Customer:
         db.commit()
 
 
-    @staticmethod
-    def get_id(customer_info):
-        sql = "SELECT id FROM customers WHERE name=%s AND gender=%s AND address=%s"
-        cur.execute(sql,customer_info[:3])
-        return cur.fetchall()
+    def update(self,edit_info):
+        sql = f"update customers set name=%s,gender=%s,address=%s,acc_type=%s,phone=%s,balance=%s where id={self.id}"
+        val = edit_info
+        cur.execute(sql,val)
+        db.commit()
+
+    # def update_balance(self,amount):
+    #     sql = f"update customers set balance=%s where id={self.id}"
+    #     val = (float(self.banlance) + amount,)
+    #     cur.execute(sql,val)
+    #     db.commit()
 
 
     @staticmethod
     def search_customer(search_info):
         sql = "SELECT id FROM customers WHERE "+ search_info[0] + " LIKE '%"+ search_info[1] +"%'"
         cur.execute(sql)
-        return cur.fetchall()
+        ids_list = cur.fetchall()
+        if ids_list == None:
+            return None
+        ids = []
+        for id in ids_list:
+            ids += list(id)
+        return ids
 
 def initialize():
     Customer.add(('John Doe','M','Buffalo,NY','S','5022222222',5000))
     Customer.add(('Bela Doe','F','Baker,CA','S','5022222222',1000))
+    

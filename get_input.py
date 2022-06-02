@@ -2,6 +2,7 @@
 
 menu = {'AdminLogin': ['Create Account', 'Delete Account', 'Search Account',
                         'Edit Account', 'Show list of all accounts', 'To main menu'],
+        'StaffLogin': ['Search Account', 'Deposit Cash', 'Withdraw Cash', 'To main menu'],
         'Searchby': ['Name', 'Address', 'Phone']
         }
 
@@ -49,24 +50,25 @@ def get_acctype():
 def get_balance():
     while True:
         balance = input('Balance: ')
+        try:
+            float(balance)
+        except ValueError:
+            print ('You need to enter a number')
+            continue
         if float(balance) <500:
             print('Minimum balance is 500, try again')
         else:
             return float(balance)
 
-def get_customer():
+
+def get_info():
     name = input('Name:')
     gender = get_gender()
     address = input('Address:')
-    return name,gender,address
-
-
-def get_info():
-    customer = get_customer()
     acc_type = get_acctype()
     phone = get_phone()
     balance = get_balance()
-    return customer[0],customer[1],customer[2],acc_type,phone,balance
+    return name,gender,address,acc_type,phone,balance
 
 
 def get_search():
@@ -74,4 +76,4 @@ def get_search():
     choice = show_menu('Searchby')
     search_type = menu['Searchby'][int(choice)-1]
     search_words = input(f'Enter the information: ')
-    return search_type,search_words
+    return search_type.lower(),search_words
