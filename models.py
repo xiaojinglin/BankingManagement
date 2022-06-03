@@ -1,5 +1,6 @@
 import mysql.connector as mysql
 
+
 myhost = "localhost"
 myuser = "python"
 mypass = "pythonmysql"
@@ -35,23 +36,14 @@ class Customer:
         self.phone = self.customer_info[5]
         self.banlance = self.customer_info[6]
 
-
     def __repr__(self):
         return f'''ID: {self.id}
                 \rName: {self.name}, Gender: {self.gender}, Address: {self.address} 
                 \rAccount Type: {self.acc_type} , Phone: {self.phone} 
                 \rBalance: {self.banlance}'''
 
-    @staticmethod
-    def add(new_info):
-        sql = "INSERT INTO customers(name,gender,address,acc_type,phone,balance) VALUES(%s,%s,%s,%s,%s,%s)"
-        val = new_info
-        cur.execute(sql,val)
-        db.commit()
-
     def get(self):
         return self.customer_info
-
 
     def delete(self):
         sql = 'DELETE FROM customers WHERE id=%s'
@@ -59,19 +51,18 @@ class Customer:
         cur.execute(sql,val)
         db.commit()
 
-
     def update(self,edit_info):
         sql = f"update customers set name=%s,gender=%s,address=%s,acc_type=%s,phone=%s,balance=%s where id={self.id}"
         val = edit_info
         cur.execute(sql,val)
         db.commit()
 
-    # def update_balance(self,amount):
-    #     sql = f"update customers set balance=%s where id={self.id}"
-    #     val = (float(self.banlance) + amount,)
-    #     cur.execute(sql,val)
-    #     db.commit()
-
+    @staticmethod
+    def add(new_info):
+        sql = "INSERT INTO customers(name,gender,address,acc_type,phone,balance) VALUES(%s,%s,%s,%s,%s,%s)"
+        val = new_info
+        cur.execute(sql,val)
+        db.commit()
 
     @staticmethod
     def search_customer(search_info):
@@ -84,6 +75,7 @@ class Customer:
         for id in ids_list:
             ids += list(id)
         return ids
+
 
 def initialize():
     Customer.add(('John Doe','M','Buffalo,NY','S','5022222222',5000))
