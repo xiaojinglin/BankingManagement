@@ -12,6 +12,12 @@ Moreover and most importantly the program helps us to deposit money
 in the account or close the account from the bank.
 The program also helps us to know all the details of customers of the
 bank.
+<p>This is main login panel</p>
+<img src="/static/img/Login.png" >
+<p>This is adminstrator panel</p>
+<img src="/static/img/admin.png" >
+<p>This is staff panel</p>
+<img src="/static/img/staff.png" >
 <h2 id="requirements">Requirements</h2>
 <p>BankingManagement requires the following to run:</p>
 <ul>
